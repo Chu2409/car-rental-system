@@ -25,7 +25,7 @@ import lombok.Setter;
 public class UserEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private long id;
 
   @Column(nullable = false, length = 50)
   private String name;
@@ -54,6 +54,6 @@ public class UserEntity {
 
   @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
   @Default
-  private Boolean active = true;
+  private boolean active = true;
 
 }
