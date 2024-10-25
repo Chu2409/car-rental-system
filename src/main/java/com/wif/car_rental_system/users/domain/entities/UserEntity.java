@@ -1,7 +1,10 @@
 package com.wif.car_rental_system.users.domain.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.wif.car_rental_system.rentals.domain.entities.RentalEntity;
 import com.wif.car_rental_system.users.domain.enums.UserRoleEnum;
 
 import jakarta.persistence.Column;
@@ -9,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Builder.Default;
@@ -30,7 +34,7 @@ public class UserEntity {
   @Column(nullable = false, length = 50)
   private String name;
 
-  @Column(nullable = false, length = 50, name = "last_name")
+  @Column(nullable = false, length = 50)
   private String lastName;
 
   @Column(nullable = false, length = 255, unique = true)
@@ -48,12 +52,20 @@ public class UserEntity {
   @Column(length = 20, nullable = false)
   private UserRoleEnum role;
 
-  @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+  @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
   @Default
   private LocalDateTime createdAt = LocalDateTime.now();
 
   @Column(nullable = false, columnDefinition = "boolean default true")
   @Default
   private Boolean active = true;
+
+  @OneToMany(mappedBy = "user")
+  @Default
+  private List<RentalEntity> userRentals = new ArrayList<>();
+
+  @OneToMany(mappedBy = "employee")
+  @Default
+  private List<RentalEntity> employeeRentals = new ArrayList<>();
 
 }

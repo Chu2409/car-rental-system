@@ -32,19 +32,19 @@ public class IncidentEntity {
   @Column(nullable = false, length = 200)
   private String description;
 
-  @Column(nullable = false, name = "repair_cost")
+  @Column(nullable = false)
   private Float repairCost;
 
-  @Column(nullable = false, name = "reported_at")
+  @Column(nullable = false)
   private LocalDateTime reportedAt;
 
-  @Column(name = "photo_evidence")
-  private String photoEvidence;
+  @Column
+  private String photoEvidenceUrl;
 
   @Column(nullable = false, length = 20)
   private IncidentStatusEnum status;
 
-  @ManyToOne(optional = false, targetEntity = RentalEntity.class)
-  @JoinColumn(name = "rental_id", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  @JoinColumn(referencedColumnName = "id", nullable = false)
   private RentalEntity rental;
 }

@@ -2,6 +2,8 @@ package com.wif.car_rental_system.rates.domain.entities;
 
 import java.time.LocalDateTime;
 
+import com.wif.car_rental_system.cars.domain.enums.CarTypeEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,18 +28,18 @@ public class RateEntity {
   private Long id;
 
   @Column(nullable = false, length = 100)
-  private String vehicleType;
+  private CarTypeEnum carType;
 
-  @Column(nullable = false, name = "base_rate")
+  @Column(nullable = false)
   private Float baseRate;
 
-  @Column(nullable = false, name = "peak_rate")
+  @Column(nullable = false)
   private Float peakRate;
 
-  @Column(nullable = false, name = "start_date")
+  @Column(nullable = false)
   private LocalDateTime startDate;
 
-  @Column(nullable = false, name = "end_date")
+  @Column(nullable = false)
   private LocalDateTime endDate;
 
   @Column(nullable = false, columnDefinition = "boolean default true")

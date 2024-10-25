@@ -33,7 +33,7 @@ public class PaymentEntity {
   @Column(nullable = false)
   private Float amount;
 
-  @Column(nullable = false, name = "payment_date")
+  @Column(nullable = false)
   private LocalDateTime paymentDate;
 
   @Column(nullable = false, length = 20)
@@ -42,7 +42,7 @@ public class PaymentEntity {
   @Column(nullable = false, length = 20)
   private PaymentStatusEnum status;
 
-  @ManyToOne(optional = false, targetEntity = RentalEntity.class)
-  @JoinColumn(name = "rental_id", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  @JoinColumn(nullable = false, referencedColumnName = "id")
   private RentalEntity rental;
 }

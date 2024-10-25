@@ -30,16 +30,16 @@ public class MaintenanceEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false, name = "start_date")
+  @Column(nullable = false)
   private LocalDateTime startDate;
 
-  @Column(nullable = false, name = "end_date")
+  @Column(nullable = false)
   private LocalDateTime endDate;
 
   @Column
   private String description;
 
-  @Column
+  @Column(nullable = false)
   private Float cost;
 
   @Column(nullable = false)
@@ -48,8 +48,8 @@ public class MaintenanceEntity {
   @Column(nullable = false)
   private MaintenanceTypeEnum type;
 
-  @ManyToOne(optional = false, targetEntity = CarEntity.class)
-  @JoinColumn(name = "car_id", nullable = false, referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  @JoinColumn(nullable = false, referencedColumnName = "id")
   private CarEntity car;
 
 }
