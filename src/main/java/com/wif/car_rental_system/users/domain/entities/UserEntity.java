@@ -45,7 +45,7 @@ public class UserEntity {
   @Column(length = 255)
   private String address;
 
-  @Column(length = 20, nullable = false, name = "role")
+  @Column(length = 20, nullable = false)
   private UserRoleEnum role;
 
   @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
