@@ -18,8 +18,8 @@ public enum PaymentTypeEnum {
     this.label = label;
   }
 
-  public static PaymentStatusEnum of(int id) {
-    return Stream.of(PaymentStatusEnum.values())
+  public static PaymentTypeEnum of(int id) {
+    return Stream.of(PaymentTypeEnum.values())
         .filter(status -> status.getId() == id)
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Invalid payment type id: " + id));

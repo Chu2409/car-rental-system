@@ -22,7 +22,7 @@ import lombok.Setter;
 public class CarEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @Column(nullable = false, length = 100)
   private String brand;
@@ -34,7 +34,7 @@ public class CarEntity {
   private String plate;
 
   @Column(nullable = false)
-  private int year;
+  private Integer year;
 
   @Column(nullable = false, length = 100)
   private String type;
@@ -49,7 +49,7 @@ public class CarEntity {
   private String color;
 
   @Column(nullable = false)
-  private int mileage;
+  private Integer mileage;
 
   @Column(name = "image_url")
   private String imageUrl;

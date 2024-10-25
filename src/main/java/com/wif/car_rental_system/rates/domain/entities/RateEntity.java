@@ -23,7 +23,7 @@ import lombok.Setter;
 public class RateEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @Column(nullable = false, length = 100)
   private String vehicleType;
@@ -42,5 +42,5 @@ public class RateEntity {
 
   @Column(nullable = false, columnDefinition = "boolean default true")
   @Default
-  private boolean active = true;
+  private Boolean active = true;
 }

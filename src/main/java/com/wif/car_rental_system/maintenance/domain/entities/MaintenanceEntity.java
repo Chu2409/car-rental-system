@@ -28,7 +28,7 @@ import lombok.Setter;
 public class MaintenanceEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @Column(nullable = false, name = "start_date")
   private LocalDateTime startDate;

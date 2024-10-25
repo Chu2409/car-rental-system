@@ -8,7 +8,7 @@ public enum UserRoleEnum {
 
   ADMIN(1, "Administrador"),
   EMPLOYEE(2, "Empleado"),
-  CLIENT(3, "Cliente");
+  CUSTOMER(3, "Cliente");
 
   private final int id;
   private final String label;
