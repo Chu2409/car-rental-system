@@ -2,6 +2,7 @@ package com.wif.car_rental_system.maintenance.domain.entities;
 
 import java.time.LocalDateTime;
 
+import com.wif.car_rental_system.cars.domain.entities.CarEntity;
 import com.wif.car_rental_system.maintenance.domain.enums.MaintenanceStatusEnum;
 import com.wif.car_rental_system.maintenance.domain.enums.MaintenanceTypeEnum;
 
@@ -10,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,5 +47,9 @@ public class MaintenanceEntity {
 
   @Column(nullable = false)
   private MaintenanceTypeEnum type;
+
+  @ManyToOne(optional = false, targetEntity = CarEntity.class)
+  @JoinColumn(name = "car_id", nullable = false, referencedColumnName = "id")
+  private CarEntity car;
 
 }
