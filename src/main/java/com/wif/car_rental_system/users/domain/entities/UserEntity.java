@@ -52,7 +52,7 @@ public class UserEntity {
   @Default
   private LocalDateTime createdAt = LocalDateTime.now();
 
-  @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
+  @Column(nullable = false, columnDefinition = "boolean default true")
   @Default
   private boolean active = true;
 

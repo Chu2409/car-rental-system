@@ -19,7 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "rates ")
+@Entity(name = "rates")
 public class RateEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +40,7 @@ public class RateEntity {
   @Column(nullable = false, name = "end_date")
   private LocalDateTime endDate;
 
-  @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
+  @Column(nullable = false, columnDefinition = "boolean default true")
   @Default
   private boolean active = true;
 }
