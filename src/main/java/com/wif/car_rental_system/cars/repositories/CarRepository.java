@@ -8,10 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
+import com.wif.car_rental_system.cars.domain.enums.CarStatusEnum;
 
 @Repository
 public interface CarRepository extends JpaRepository<CarEntity, Long> {
-    Page<CarEntity> findAllByActiveTrue(Pageable pageable);
+    boolean existsByPlate(String plate);
+
+    Page<CarEntity> findAllByStatus(CarStatusEnum status, Pageable pageable);
     
-    Optional<CarEntity> findByIdAndActiveTrue(Long id);
+    Optional<CarEntity> findById(Long id);
 }
