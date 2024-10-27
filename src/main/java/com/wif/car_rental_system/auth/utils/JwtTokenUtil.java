@@ -1,4 +1,4 @@
-package com.wif.car_rental_system.users.services.impl;
+package com.wif.car_rental_system.auth.utils;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -12,10 +12,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.wif.car_rental_system.users.domain.entities.UserEntity;
-import com.wif.car_rental_system.users.services.TokenService;
 
 @Service
-public class TokenServiceImpl implements TokenService {
+public class JwtTokenUtil {
 
   @Value("${JWT_SECRET}")
   private String JWT_SECRET;
@@ -32,12 +31,10 @@ public class TokenServiceImpl implements TokenService {
   private final String EMAIL_CLAIM = "email";
   private final String RECOVERY_CLAIM = "recovery";
 
-  @Override
   public String genAccessToken(UserEntity user) {
     try {
       Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
 
-      System.out.println(JWT_TIMEZONE_OFFSET);
       Instant expirationDate = LocalDateTime.now().plusHours(JWT_EXPIRATION_HOURS)
           .toInstant(ZoneOffset.of(JWT_TIMEZONE_OFFSET));
 
@@ -51,7 +48,6 @@ public class TokenServiceImpl implements TokenService {
     }
   }
 
-  @Override
   public String genRecoveryKeyToken(UserEntity user) {
     try {
       Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
@@ -70,7 +66,6 @@ public class TokenServiceImpl implements TokenService {
     }
   }
 
-  @Override
   public String validateToken(String token) {
     try {
       Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);

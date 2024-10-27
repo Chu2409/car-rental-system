@@ -1,11 +1,11 @@
-package com.wif.car_rental_system.users.controllers;
+package com.wif.car_rental_system.auth.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wif.car_rental_system.auth.services.AuthService;
+import com.wif.car_rental_system.auth.utils.JwtTokenUtil;
 import com.wif.car_rental_system.users.domain.entities.UserEntity;
-import com.wif.car_rental_system.users.services.AuthService;
-import com.wif.car_rental_system.users.services.TokenService;
 
 import jakarta.validation.Valid;
 
@@ -24,7 +24,7 @@ public class AuthController {
   private AuthService service;
 
   @Autowired
-  private TokenService tokenService;
+  private JwtTokenUtil jwtTokenUtil;
 
   @Autowired
   private AuthenticationManager authenticationManager;
@@ -40,7 +40,7 @@ public class AuthController {
   public ResponseEntity<String> signIn(@RequestBody @Valid UserEntity entity) {
     var usernamePassword = new UsernamePasswordAuthenticationToken(entity.getEmail(), entity.getPassword());
     var authUser = authenticationManager.authenticate(usernamePassword);
-    var accessToken = tokenService.genAccessToken((UserEntity) authUser.getPrincipal());
+    var accessToken = jwtTokenUtil.genAccessToken((UserEntity) authUser.getPrincipal());
     return ResponseEntity.ok(accessToken);
   }
 }

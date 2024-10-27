@@ -1,4 +1,4 @@
-package com.wif.car_rental_system.users.services;
+package com.wif.car_rental_system.auth.services;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
