@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
-import com.wif.car_rental_system.cars.domain.enums.CarStatusEnum;
 import com.wif.car_rental_system.cars.repositories.CarRepository;
 import com.wif.car_rental_system.cars.services.CarService;
 
@@ -22,11 +21,9 @@ public class CarServiceImpl implements CarService{
     private CarRepository carRepository;
 
     @Override
-    public List<CarEntity> findAll(Pageable pageable, boolean includeInactive) {
-        if(includeInactive)
-            return carRepository.findAll(pageable).getContent();
+    public List<CarEntity> findAll(Pageable pageable) {
         
-        return carRepository.findAllByStatus(CarStatusEnum.AVAILABLE, pageable).getContent();
+        return carRepository.findAll( pageable).getContent();
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
 
 public interface CarService {
-    List<CarEntity> findAll(Pageable pageable, boolean includeInactive);
+    List<CarEntity> findAll(Pageable pageable);
     
     CarEntity findById(Long id);
 
