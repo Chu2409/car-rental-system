@@ -1,6 +1,7 @@
 package com.wif.car_rental_system.auth.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wif.car_rental_system.auth.services.AuthService;
@@ -42,5 +43,18 @@ public class AuthController {
     var authUser = authenticationManager.authenticate(usernamePassword);
     var accessToken = jwtTokenUtil.genAccessToken((UserEntity) authUser.getPrincipal());
     return ResponseEntity.ok(accessToken);
+  }
+
+  @PostMapping("/reset")
+  public ResponseEntity<Void> requestPasswordReset(@RequestParam("email") String email) {
+    service.sendRecoveryToken(email);
+    return ResponseEntity.ok().build();
+  }
+
+  @PostMapping("/reset-password")
+  public ResponseEntity<Void> resetPassword(@RequestParam("token") String token,
+      @RequestParam("newPassword") String newPassword) {
+    service.resetPassword(token, newPassword);
+    return ResponseEntity.ok().build();
   }
 }

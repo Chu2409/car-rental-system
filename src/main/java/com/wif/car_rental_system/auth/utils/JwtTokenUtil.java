@@ -58,7 +58,7 @@ public class JwtTokenUtil {
       return JWT.create()
           .withSubject(user.getUsername())
           .withClaim(EMAIL_CLAIM, user.getUsername())
-          .withClaim(RECOVERY_CLAIM, user.getUsername())
+          .withClaim(RECOVERY_CLAIM, true)
           .withExpiresAt(expirationDate)
           .sign(algorithm);
     } catch (JWTCreationException exception) {
@@ -74,6 +74,20 @@ public class JwtTokenUtil {
           .build()
           .verify(token)
           .getSubject();
+    } catch (JWTVerificationException exception) {
+      throw new JWTVerificationException("Error while validating token", exception);
+    }
+  }
+
+  public boolean isRecoveryToken(String token) {
+    try {
+      Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
+
+      return JWT.require(algorithm)
+          .build()
+          .verify(token)
+          .getClaim(RECOVERY_CLAIM)
+          .asBoolean();
     } catch (JWTVerificationException exception) {
       throw new JWTVerificationException("Error while validating token", exception);
     }
