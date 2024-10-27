@@ -7,15 +7,15 @@ import org.springframework.data.domain.Pageable;
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
 
 public interface CarService {
-    List<CarEntity> findAll(Pageable pageable);
-    
-    CarEntity findById(Long id);
+  List<CarEntity> findAll(Pageable pageable);
 
-    CarEntity save(CarEntity car);
-    
-    CarEntity update(Long id, CarEntity car);
+  CarEntity findById(Long id);
 
-    boolean existsById(Long id);
+  CarEntity save(CarEntity car);
 
-    Object deleteById(Long id);
+  CarEntity update(Long id, CarEntity car);
+
+  boolean existsById(Long id);
+
+  void deleteById(Long id);
 }

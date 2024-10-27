@@ -5,48 +5,49 @@ import org.hibernate.validator.constraints.Length;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class CreateCarReqDto {
+  @NotNull(message = "brand is required")
+  @Length(max = 100, message = "brand must be less than 100 characters")
+  private String brand;
 
-    @NotNull(message = "Brand is required")
-    @Length(max = 100, message = "Brand must be less than 100 characters")
-    private String brand;
+  @NotNull(message = "model is required")
+  @Length(max = 100, message = "model must be lees than 100 characters")
+  private String model;
 
-    @NotNull(message = "Model is required")
-    @Length(max = 100, message = "Model must be lees than 100 characters")
-    private String model;
+  @NotNull(message = "plate is required")
+  @Length(max = 10, message = "plate must be lees than 10 characters")
+  private String plate;
 
-    @NotNull(message = "Plate is required")
-    @Length(max =  10, message = " Plate must be lees than 10 characters" )
-    private String plate;
+  @NotNull(message = "year is required")
+  private Integer year;
 
-    @NotNull(message = "Year is required")
-    private Integer year;
+  @NotNull(message = "type is required")
+  @Length(max = 30, message = "type must be lees than 30 characters")
+  private String type;
 
-    @NotNull(message = "Type is required")
-    @Length(max = 30, message = "Type must be lees than 30 characters")
-    private String type;
+  @NotNull(message = "dailyRate is required")
+  private Float dailyRate;
 
-    @NotNull(message = "DailyRate is required")
-    private Float dailyRate;
+  @NotNull(message = "status is required")
+  @Length(max = 20, message = "status must be lees than 20 characters")
+  private String status;
 
-    @NotNull(message = "Status is required")
-    @Length(max = 20, message = "Status must be lees than 20 characters")
-    private String status;
+  @NotNull(message = "color is required")
+  @Length(max = 50, message = "color must be lees than 50 characters")
+  private String color;
 
-    @NotNull(message = "Color is required")
-    @Length(max = 50, message = "Color must be lees than 50 characters")
-    private String color;
+  @NotNull(message = "mileage is required")
+  private Integer mileage;
 
-    @NotNull(message = "Mileage is required")
-    private Integer mileage;
-    
-    private String imageUrl;
-    
+  private String imageUrl;
+
 }

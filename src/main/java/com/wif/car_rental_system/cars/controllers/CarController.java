@@ -29,57 +29,53 @@ import jakarta.validation.Valid;
 @RequestMapping("/cars")
 public class CarController {
 
-    @Autowired
-    private CarService carService;
+  @Autowired
+  private CarService carService;
 
-    @Autowired
-    private CarMapper mapper;
+  @Autowired
+  private CarMapper mapper;
 
-    @GetMapping
-    public ResponseEntity<List<CarResDto>> findAll(@PageableDefault(sort = "id") Pageable pageable) {
-        List<CarEntity> cars = carService.findAll(pageable);
+  @GetMapping
+  public ResponseEntity<List<CarResDto>> findAll(@PageableDefault(sort = "id") Pageable pageable) {
+    List<CarEntity> cars = carService.findAll(pageable);
 
-        List<CarResDto> carsRes = cars.stream().map(mapper::toRes).toList();
+    List<CarResDto> carsRes = cars.stream().map(mapper::toRes).toList();
 
-        return ResponseEntity.ok(carsRes);
-    }
+    return ResponseEntity.ok(carsRes);
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CarResDto> findById(@PathVariable("id") Long id) {
-        CarEntity car = carService.findById(id);
+  @GetMapping("/{id}")
+  public ResponseEntity<CarResDto> findById(@PathVariable("id") Long id) {
+    CarEntity car = carService.findById(id);
 
-        return ResponseEntity.ok(mapper.toRes(car));
-    }
+    return ResponseEntity.ok(mapper.toRes(car));
+  }
 
-    @PostMapping
-    public ResponseEntity<CarResDto> save(@RequestBody @Valid CreateCarReqDto carDto) {
-        CarEntity car = mapper.toEntity(carDto);
+  @PostMapping
+  public ResponseEntity<CarResDto> save(@RequestBody @Valid CreateCarReqDto carDto) {
+    CarEntity car = mapper.toEntity(carDto);
 
-        car = carService.save(car);
+    car = carService.save(car);
 
-        return ResponseEntity.ok(mapper.toRes(car));
-    }
+    return ResponseEntity.ok(mapper.toRes(car));
+  }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<CarResDto> update(@PathVariable("id") Long id, @RequestBody @Valid UpdateCarReqDto carDto) {
-        CarEntity car = mapper.toEntity(carDto);
+  @PatchMapping("/{id}")
+  public ResponseEntity<CarResDto> update(@PathVariable("id") Long id, @RequestBody @Valid UpdateCarReqDto carDto) {
+    CarEntity car = mapper.toEntity(carDto);
 
-        car = carService.update(id, car);
+    car = carService.update(id, car);
 
-        return ResponseEntity.ok(mapper.toRes(car));
-    }
+    return ResponseEntity.ok(mapper.toRes(car));
+  }
 
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Object> deleteById(@PathVariable("id") Long id) {
+    carService.deleteById(id);
+    LinkedIdentityHashMap<String, String> response = new LinkedIdentityHashMap<>();
+    response.put("message", "Car deleted");
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteById(@PathVariable("id") Long id){
-        carService.deleteById(id);
-        LinkedIdentityHashMap<String, String> response = new LinkedIdentityHashMap<>();
-        response.put("message", "Car deleted");
+    return ResponseEntity.ok(response);
+  }
 
-        return ResponseEntity.ok(response);
-    }
-
-
-    
-    
 }
