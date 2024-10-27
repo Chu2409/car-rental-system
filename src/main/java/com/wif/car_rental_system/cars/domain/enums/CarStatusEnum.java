@@ -1,28 +1,18 @@
 package com.wif.car_rental_system.cars.domain.enums;
 
 import java.util.stream.Stream;
-import lombok.Getter;
 
-@Getter
-public enum CarStatusEnum {
+import com.wif.car_rental_system.shared.interfaces.EnumInterface;
 
-  AVAILABLE(1, "Disponible"),
-  RENTED(2, "Alquilado"),
-  MAINTENANCE(3, "En mantenimiento");
+public enum CarStatusEnum implements EnumInterface {
+  AVAILABLE("Disponible"),
+  RENTED("Alquilado"),
+  MAINTENANCE("En mantenimiento");
 
-  private final int id;
   private final String label;
 
-  private CarStatusEnum(int id, String label) {
-    this.id = id;
+  private CarStatusEnum(String label) {
     this.label = label;
-  }
-
-  public static CarStatusEnum of(int id) {
-    return Stream.of(CarStatusEnum.values())
-        .filter(status -> status.getId() == id)
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Invalid car status id: " + id));
   }
 
   public static CarStatusEnum of(String label) {
@@ -33,5 +23,9 @@ public enum CarStatusEnum {
         .filter(status -> status.getLabel().equals(label))
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Invalid car status label: " + label));
+  }
+
+  public String getLabel() {
+    return this.label;
   }
 }

@@ -1,28 +1,18 @@
 package com.wif.car_rental_system.users.domain.enums;
 
 import java.util.stream.Stream;
-import lombok.Getter;
 
-@Getter
-public enum UserRoleEnum {
+import com.wif.car_rental_system.shared.interfaces.EnumInterface;
 
-  ADMIN(1, "Administrador"),
-  EMPLOYEE(2, "Empleado"),
-  CUSTOMER(3, "Cliente");
+public enum UserRoleEnum implements EnumInterface {
+  ADMIN("Administrador"),
+  EMPLOYEE("Empleado"),
+  CUSTOMER("Cliente");
 
-  private final int id;
   private final String label;
 
-  private UserRoleEnum(int id, String label) {
-    this.id = id;
+  private UserRoleEnum(String label) {
     this.label = label;
-  }
-
-  public static UserRoleEnum of(int id) {
-    return Stream.of(UserRoleEnum.values())
-        .filter(role -> role.getId() == id)
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Invalid user role id: " + id));
   }
 
   public static UserRoleEnum of(String label) {
@@ -33,5 +23,9 @@ public enum UserRoleEnum {
         .filter(role -> role.getLabel().equals(label))
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Invalid user role label: " + label));
+  }
+
+  public String getLabel() {
+    return this.label;
   }
 }

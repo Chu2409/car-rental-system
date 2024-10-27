@@ -1,33 +1,23 @@
 package com.wif.car_rental_system.cars.domain.enums;
 
 import java.util.stream.Stream;
-import lombok.Getter;
 
-@Getter
-public enum CarTypeEnum {
+import com.wif.car_rental_system.shared.interfaces.EnumInterface;
 
-  ECONOMY(1, "Económico"),
-  SEDAN(2, "Sedán"),
-  COMPACT_SUV(3, "SUV Compacto"),
-  LARGE_SUV(4, "SUV Grande"),
-  LUXURY(5, "Lujo"),
-  PICKUP(6, "Camioneta"),
-  MINIVAN(7, "Minivan"),
-  SPORT(8, "Deportivo");
+public enum CarTypeEnum implements EnumInterface {
+  ECONOMY("Económico"),
+  SEDAN("Sedán"),
+  COMPACT_SUV("SUV Compacto"),
+  LARGE_SUV("SUV Grande"),
+  LUXURY("Lujo"),
+  PICKUP("Camioneta"),
+  MINIVAN("Minivan"),
+  SPORT("Deportivo");
 
-  private final int id;
   private final String label;
 
-  private CarTypeEnum(int id, String label) {
-    this.id = id;
+  private CarTypeEnum(String label) {
     this.label = label;
-  }
-
-  public static CarTypeEnum of(int id) {
-    return Stream.of(CarTypeEnum.values())
-        .filter(status -> status.getId() == id)
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Invalid car type id: " + id));
   }
 
   public static CarTypeEnum of(String label) {
@@ -38,5 +28,9 @@ public enum CarTypeEnum {
         .filter(status -> status.getLabel().equals(label))
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Invalid car type label: " + label));
+  }
+
+  public String getLabel() {
+    return this.label;
   }
 }

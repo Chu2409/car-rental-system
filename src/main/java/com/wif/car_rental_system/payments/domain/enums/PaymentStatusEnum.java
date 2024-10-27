@@ -1,28 +1,18 @@
 package com.wif.car_rental_system.payments.domain.enums;
 
 import java.util.stream.Stream;
-import lombok.Getter;
 
-@Getter
-public enum PaymentStatusEnum {
+import com.wif.car_rental_system.shared.interfaces.EnumInterface;
 
-  PENDING(1, "Pendiente"),
-  COMPLETED(2, "Completado"),
-  CANCELED(3, "Cancelado");
+public enum PaymentStatusEnum implements EnumInterface {
+  PENDING("Pendiente"),
+  COMPLETED("Completado"),
+  CANCELED("Cancelado");
 
-  private final int id;
   private final String label;
 
-  private PaymentStatusEnum(int id, String label) {
-    this.id = id;
+  private PaymentStatusEnum(String label) {
     this.label = label;
-  }
-
-  public static PaymentStatusEnum of(int id) {
-    return Stream.of(PaymentStatusEnum.values())
-        .filter(status -> status.getId() == id)
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Invalid payment status id: " + id));
   }
 
   public static PaymentStatusEnum of(String label) {
@@ -33,5 +23,9 @@ public enum PaymentStatusEnum {
         .filter(status -> status.getLabel().equals(label))
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Invalid payment status label: " + label));
+  }
+
+  public String getLabel() {
+    return this.label;
   }
 }

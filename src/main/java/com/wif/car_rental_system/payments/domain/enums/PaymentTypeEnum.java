@@ -1,28 +1,19 @@
 package com.wif.car_rental_system.payments.domain.enums;
 
 import java.util.stream.Stream;
-import lombok.Getter;
 
-@Getter
-public enum PaymentTypeEnum {
+import com.wif.car_rental_system.shared.interfaces.EnumInterface;
 
-  CASH(1, "Efectivo"),
-  CARD(2, "Tarjeta"),
-  TRANSFER(3, "Transferencia");
+public enum PaymentTypeEnum implements EnumInterface {
+  CASH("Efectivo"),
+  CARD("Tarjeta"),
+  TRANSFER("Transferencia");
 
-  private final int id;
   private final String label;
 
-  private PaymentTypeEnum(int id, String label) {
-    this.id = id;
-    this.label = label;
-  }
+  private PaymentTypeEnum(String label) {
 
-  public static PaymentTypeEnum of(int id) {
-    return Stream.of(PaymentTypeEnum.values())
-        .filter(status -> status.getId() == id)
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Invalid payment type id: " + id));
+    this.label = label;
   }
 
   public static PaymentTypeEnum of(String label) {
@@ -33,5 +24,9 @@ public enum PaymentTypeEnum {
         .filter(status -> status.getLabel().equals(label))
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Invalid payment type label: " + label));
+  }
+
+  public String getLabel() {
+    return this.label;
   }
 }
