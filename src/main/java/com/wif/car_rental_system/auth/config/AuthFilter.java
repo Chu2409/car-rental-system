@@ -1,4 +1,4 @@
-package com.wif.car_rental_system.auth.filters;
+package com.wif.car_rental_system.auth.config;
 
 import java.io.IOException;
 

@@ -4,9 +4,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wif.car_rental_system.auth.domain.dtos.req.SigninReqDto;
+import com.wif.car_rental_system.auth.domain.dtos.req.SignupReqDto;
+import com.wif.car_rental_system.auth.domain.dtos.res.SigninResDto;
+import com.wif.car_rental_system.auth.domain.mappers.AuthMapper;
 import com.wif.car_rental_system.auth.services.AuthService;
 import com.wif.car_rental_system.auth.utils.JwtTokenUtil;
+import com.wif.car_rental_system.users.domain.dtos.res.UserResDto;
 import com.wif.car_rental_system.users.domain.entities.UserEntity;
+import com.wif.car_rental_system.users.domain.mappers.UserMapper;
 
 import jakarta.validation.Valid;
 
@@ -30,19 +36,28 @@ public class AuthController {
   @Autowired
   private AuthenticationManager authenticationManager;
 
-  @PostMapping("/signup")
-  public ResponseEntity<UserEntity> postMethodName(@RequestBody UserEntity entity) {
-    UserEntity registeredUser = service.signup(entity);
+  @Autowired
+  private AuthMapper mapper;
 
-    return ResponseEntity.ok(registeredUser);
+  @Autowired
+  private UserMapper userMapper;
+
+  @PostMapping("/signup")
+  public ResponseEntity<UserResDto> signup(@RequestBody @Valid SignupReqDto dto) {
+    UserEntity user = mapper.toEntity(dto);
+
+    UserEntity registeredUser = service.signup(user);
+
+    return ResponseEntity.ok(userMapper.toRes(registeredUser));
   }
 
   @PostMapping("/signin")
-  public ResponseEntity<String> signIn(@RequestBody @Valid UserEntity entity) {
-    var usernamePassword = new UsernamePasswordAuthenticationToken(entity.getEmail(), entity.getPassword());
+  public ResponseEntity<SigninResDto> signIn(@RequestBody @Valid SigninReqDto dto) {
+    var usernamePassword = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
     var authUser = authenticationManager.authenticate(usernamePassword);
     var accessToken = jwtTokenUtil.genAccessToken((UserEntity) authUser.getPrincipal());
-    return ResponseEntity.ok(accessToken);
+
+    return ResponseEntity.ok(mapper.toRes(accessToken));
   }
 
   @PostMapping("/reset")
