@@ -1,27 +1,18 @@
 package com.wif.car_rental_system.maintenance.domain.enums;
 
 import java.util.stream.Stream;
-import lombok.Getter;
 
-@Getter
-public enum MaintenanceTypeEnum {
+import com.wif.car_rental_system.shared.interfaces.EnumInterface;
 
-  PREVENTIVE(1, "Preventivo"),
-  CORRECTIVE(2, "Correctivo");
+public enum MaintenanceTypeEnum implements EnumInterface {
+  PREVENTIVE("Preventivo"),
+  CORRECTIVE("Correctivo");
 
-  private final int id;
   private final String label;
 
-  private MaintenanceTypeEnum(int id, String label) {
-    this.id = id;
-    this.label = label;
-  }
+  private MaintenanceTypeEnum(String label) {
 
-  public static MaintenanceTypeEnum of(int id) {
-    return Stream.of(MaintenanceTypeEnum.values())
-        .filter(status -> status.getId() == id)
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Invalid maintenance type id: " + id));
+    this.label = label;
   }
 
   public static MaintenanceTypeEnum of(String label) {
@@ -32,5 +23,9 @@ public enum MaintenanceTypeEnum {
         .filter(status -> status.getLabel().equals(label))
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Invalid maintenance type label: " + label));
+  }
+
+  public String getLabel() {
+    return this.label;
   }
 }
