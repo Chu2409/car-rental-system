@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.wif.car_rental_system.cars.domain.dtos.CarResDto;
 import com.wif.car_rental_system.cars.domain.dtos.CreateCarReqDto;
+import com.wif.car_rental_system.cars.domain.dtos.UpdateCarReqDto;
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
 import com.wif.car_rental_system.cars.domain.enums.CarStatusEnum;
 import com.wif.car_rental_system.cars.domain.enums.CarTypeEnum;
@@ -22,6 +23,24 @@ public class CarMapper {
         CarTypeEnum type = CarTypeEnum.of(dto.getType());
         CarStatusEnum status = CarStatusEnum.of(dto.getStatus());
 
+
+        return CarEntity.builder()
+            .brand(dto.getBrand())
+            .model(dto.getModel())
+            .color(dto.getColor())
+            .plate(dto.getPlate())
+            .year(dto.getYear())
+            .type(type)
+            .status(status)
+            .dailyRate(dto.getDailyRate())
+            .mileage(dto.getMileage())
+            .imageUrl(dto.getImageUrl())
+            .build();
+    }
+
+    public CarEntity toEntity(UpdateCarReqDto dto) {
+        CarTypeEnum type = CarTypeEnum.of(dto.getType());
+        CarStatusEnum status = CarStatusEnum.of(dto.getStatus());
 
         return CarEntity.builder()
             .brand(dto.getBrand())

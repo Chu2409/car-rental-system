@@ -56,6 +56,7 @@ public class CarServiceImpl implements CarService{
         Optional.ofNullable(car.getStatus()).ifPresent(carToUpdate::setStatus);
         Optional.ofNullable(car.getType()).ifPresent(carToUpdate::setType);
         Optional.ofNullable(car.getDailyRate()).ifPresent(carToUpdate::setDailyRate);
+        Optional.ofNullable(car.getImageUrl()).ifPresent(carToUpdate::setImageUrl);
 
         return carRepository.save(carToUpdate);
     }
