@@ -5,14 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wif.car_rental_system.cars.domain.dtos.CarResDto;
+import com.wif.car_rental_system.cars.domain.dtos.CreateCarReqDto;
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
 import com.wif.car_rental_system.cars.domain.mappers.CarMapper;
 import com.wif.car_rental_system.cars.services.CarService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/cars")
@@ -33,7 +40,28 @@ public class CarController {
         return ResponseEntity.ok(carsRes);
     }
 
-    @
+    @GetMapping("/{id}")
+    public ResponseEntity<CarResDto> findById(@PathVariable("id") Long id) {
+        CarEntity car = carService.findById(id);
+
+        return ResponseEntity.ok(mapper.toRes(car));
+    }
+
+    @PostMapping
+    public ResponseEntity<CarResDto> save(@RequestBody @Valid CreateCarReqDto carDto) {
+        CarEntity car = mapper.toEntity(carDto);
+
+        car = carService.save(car);
+
+        return ResponseEntity.ok(mapper.toRes(car));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteById(@PathVariable("id") Long id){
+        carService.deleteById(id);
+
+        return ResponseEntity.ok("Car deleted");
+    }
 
 
     

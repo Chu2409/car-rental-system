@@ -3,7 +3,10 @@ package com.wif.car_rental_system.cars.domain.mappers;
 import org.springframework.stereotype.Component;
 
 import com.wif.car_rental_system.cars.domain.dtos.CarResDto;
+import com.wif.car_rental_system.cars.domain.dtos.CreateCarReqDto;
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
+import com.wif.car_rental_system.cars.domain.enums.CarStatusEnum;
+import com.wif.car_rental_system.cars.domain.enums.CarTypeEnum;
 
 @Component
 public class CarMapper {
@@ -14,23 +17,25 @@ public class CarMapper {
             .build();
     }
 
-    // public CarEntity toEntity(CreateCarReqDto dto) {
-    //     return CarEntity.builder()
-    //         .brand(dto.getBrand())
-    //         .model(dto.getModel())
-    //         .color(dto.getColor())
-    //         .plate(dto.getPlate())
-    //         .year(dto.getYear())
-    //         .type(dto.getType())
-    //         .fuel(dto.getFuel())
-    //         .transmission(dto.getTransmission())
-    //         .status(dto.getStatus())
-    //         .price(dto.getPrice())
-    //         .image(dto.getImage())
-    //         .description(dto.getDescription())
-    //         .active(dto.getActive())
-    //         .build();
-    // }
+    public CarEntity toEntity(CreateCarReqDto dto) {
+
+        CarTypeEnum type = CarTypeEnum.of(dto.getType());
+        CarStatusEnum status = CarStatusEnum.of(dto.getStatus());
+
+
+        return CarEntity.builder()
+            .brand(dto.getBrand())
+            .model(dto.getModel())
+            .color(dto.getColor())
+            .plate(dto.getPlate())
+            .year(dto.getYear())
+            .type(type)
+            .status(status)
+            .dailyRate(dto.getDailyRate())
+            .mileage(dto.getMileage())
+            .imageUrl(dto.getImageUrl())
+            .build();
+    }
 
     public CarResDto toRes(CarEntity entity) {
         String status = entity.getStatus().getLabel();
@@ -46,6 +51,7 @@ public class CarMapper {
             .dailyRate(entity.getDailyRate())
             .status(status)
             .mileage(entity.getMileage())
+            .imageUrl(entity.getImageUrl())
             .build();
     }
     
