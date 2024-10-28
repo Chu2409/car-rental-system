@@ -44,7 +44,8 @@ public class AuthConfig {
         .cors(Customizer.withDefaults())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/*").permitAll())
+            .anyRequest().permitAll())
+
         .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
   }
