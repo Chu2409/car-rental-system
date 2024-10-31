@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.wif.car_rental_system.cars.domain.dtos.CarFilters;
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
 import com.wif.car_rental_system.cars.repositories.CarRepository;
+import com.wif.car_rental_system.cars.repositories.specifications.CarSpecifications;
 import com.wif.car_rental_system.cars.services.CarService;
 
 import jakarta.persistence.EntityExistsException;
@@ -23,6 +25,11 @@ public class CarServiceImpl implements CarService {
   @Override
   public List<CarEntity> findAll(Pageable pageable) {
     return carRepository.findAll(pageable).getContent();
+  }
+
+  @Override
+  public List<CarEntity> findAllWithFilters(CarFilters filters, Pageable pageable) {
+    return carRepository.findAll(CarSpecifications.withFilters(filters), pageable).getContent();
   }
 
   @Override
