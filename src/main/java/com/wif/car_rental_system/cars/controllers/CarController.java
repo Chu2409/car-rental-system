@@ -56,10 +56,9 @@ public class CarController {
 
   @GetMapping("/filter")
   public ResponseEntity<List<CarResDto>> findAll(
-    CarFilters filters,
-    @RequestParam(defaultValue = "0") int page,
-    @RequestParam(defaultValue = "10") int perPage
-  ) {
+      CarFilters filters,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int perPage) {
     Pageable pageable = PageRequest.of(page, perPage);
     List<CarEntity> cars = carService.findAllWithFilters(filters, pageable);
 
