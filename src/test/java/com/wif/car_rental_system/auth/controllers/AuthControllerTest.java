@@ -56,7 +56,7 @@ public class AuthControllerTest {
   void whenAccessingPublicEndpoint_thenSuccess() throws Exception {
     String userJson = objectMapper.writeValueAsString(SigninReqDto.builder()
         .email(TEST_EMAIL)
-        .password("password1232")
+        .password("password")
         .build());
 
     mockMvc.perform(post("/auth/signin")
