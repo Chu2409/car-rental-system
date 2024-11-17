@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.internal.util.collections.LinkedIdentityHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wif.car_rental_system.cars.domain.dtos.CarFilters;
 import com.wif.car_rental_system.cars.domain.dtos.CarResDto;
 import com.wif.car_rental_system.cars.domain.dtos.CreateCarReqDto;
 import com.wif.car_rental_system.cars.domain.dtos.UpdateCarReqDto;
@@ -49,6 +52,19 @@ public class CarController {
     CarEntity car = carService.findById(id);
 
     return ResponseEntity.ok(mapper.toRes(car));
+  }
+
+  @GetMapping("/filter")
+  public ResponseEntity<List<CarResDto>> findAll(
+      CarFilters filters,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int perPage) {
+    Pageable pageable = PageRequest.of(page, perPage);
+    List<CarEntity> cars = carService.findAllWithFilters(filters, pageable);
+
+    List<CarResDto> carsRes = cars.stream().map(mapper::toRes).toList();
+
+    return ResponseEntity.ok(carsRes);
   }
 
   @PostMapping

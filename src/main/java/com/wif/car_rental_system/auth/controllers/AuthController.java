@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wif.car_rental_system.auth.domain.dtos.req.ResetPasswordReqDto;
 import com.wif.car_rental_system.auth.domain.dtos.req.SigninReqDto;
 import com.wif.car_rental_system.auth.domain.dtos.req.SignupReqDto;
 import com.wif.car_rental_system.auth.domain.dtos.res.SigninResDto;
@@ -68,8 +69,8 @@ public class AuthController {
 
   @PostMapping("/reset-password")
   public ResponseEntity<Void> resetPassword(@RequestParam("token") String token,
-      @RequestParam("newPassword") String newPassword) {
-    service.resetPassword(token, newPassword);
+      @RequestBody @Valid ResetPasswordReqDto dto) {
+    service.resetPassword(token, dto.getNewPassword());
     return ResponseEntity.ok().build();
   }
 }
