@@ -1,4 +1,5 @@
-INSERT INTO 
-  users ("name", "last_name", "email", "password", "role")
-VALUES
-  ('Juanito', 'Alimaña', 'juan@gmail.com', '$2a$10$c2JvvYtrFQQo5BJf3E6Km.UCiNxmW7o0wuQaiR2zJBwjNx.h76czq', 'Administrador')
+DELETE FROM users WHERE email = 'juan@gmail.com';
+
+INSERT INTO users ("name", "last_name", "email", "password", "role") VALUES ('Juanito', 'Alimaña', 'juan@gmail.com', '$2a$10$Sd6uoK/PWNfzN1CevYQFs.HpTp9yp0WCi6PgYzLSRAaszeTm1Vdue', 'Administrador');
+
+-- Password 123456
