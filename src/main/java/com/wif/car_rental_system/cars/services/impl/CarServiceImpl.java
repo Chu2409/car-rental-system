@@ -1,6 +1,8 @@
 package com.wif.car_rental_system.cars.services.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,20 @@ public class CarServiceImpl implements CarService {
   }
 
   @Override
-  public List<CarEntity> findAllWithFilters(CarFilters filters, Pageable pageable) {
-    return carRepository.findAll(CarSpecifications.withFilters(filters), pageable).getContent();
+  public Map<String, Object> findAllWithFilters(CarFilters filters, Pageable pageable) {
+    var filteredSpec = CarSpecifications.withFilters(filters);
+
+    long totalItems = carRepository.count(filteredSpec);
+
+    List<CarEntity> items = carRepository.findAll(filteredSpec, pageable).getContent();
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("items", items);
+    response.put("totalItems", totalItems);
+    response.put("page", pageable.getPageNumber());
+    response.put("perPage", pageable.getPageSize());
+
+    return response;
   }
 
   @Override

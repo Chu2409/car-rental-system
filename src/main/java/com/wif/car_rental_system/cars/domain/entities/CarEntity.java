@@ -59,7 +59,7 @@ public class CarEntity {
   @Column(nullable = false)
   private Integer mileage;
 
-  @Column
+  @Column(length = 300)
   private String imageUrl;
 
   @OneToMany(mappedBy = "car")
