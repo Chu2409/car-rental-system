@@ -1,6 +1,7 @@
 package com.wif.car_rental_system.cars.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.internal.util.collections.LinkedIdentityHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,17 +56,22 @@ public class CarController {
   }
 
   @GetMapping("/filter")
-  public ResponseEntity<List<CarResDto>> findAll(
-    CarFilters filters,
-    @RequestParam(defaultValue = "0") int page,
-    @RequestParam(defaultValue = "10") int perPage
-  ) {
+  public ResponseEntity<Map<String, Object>> findAll(
+      @Valid CarFilters filters,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int perPage) {
+
     Pageable pageable = PageRequest.of(page, perPage);
-    List<CarEntity> cars = carService.findAllWithFilters(filters, pageable);
 
-    List<CarResDto> carsRes = cars.stream().map(mapper::toRes).toList();
+    Map<String, Object> result = carService.findAllWithFilters(filters, pageable);
 
-    return ResponseEntity.ok(carsRes);
+    @SuppressWarnings("unchecked")
+    List<CarEntity> carEntities = (List<CarEntity>) result.get("items");
+    List<CarResDto> carsRes = carEntities.stream().map(mapper::toRes).toList();
+
+    result.put("items", carsRes);
+
+    return ResponseEntity.ok(result);
   }
 
   @PostMapping

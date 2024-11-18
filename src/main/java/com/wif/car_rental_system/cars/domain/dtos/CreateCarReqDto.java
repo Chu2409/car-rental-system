@@ -2,6 +2,10 @@ package com.wif.car_rental_system.cars.domain.dtos;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.wif.car_rental_system.cars.domain.enums.CarStatusEnum;
+import com.wif.car_rental_system.cars.domain.enums.CarTypeEnum;
+import com.wif.car_rental_system.shared.validators.EnumValue;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +36,7 @@ public class CreateCarReqDto {
 
   @NotNull(message = "type is required")
   @Length(max = 30, message = "type must be lees than 30 characters")
+  @EnumValue(enumClass = CarTypeEnum.class, message = "Invalid car type")
   private String type;
 
   @NotNull(message = "dailyRate is required")
@@ -39,6 +44,7 @@ public class CreateCarReqDto {
 
   @NotNull(message = "status is required")
   @Length(max = 20, message = "status must be lees than 20 characters")
+  @EnumValue(enumClass = CarStatusEnum.class, message = "Invalid car status")
   private String status;
 
   @NotNull(message = "color is required")
