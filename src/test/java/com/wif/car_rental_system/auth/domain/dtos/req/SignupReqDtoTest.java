@@ -22,7 +22,7 @@ public class SignupReqDtoTest {
         .lastName("Doe")
         .email("john.doe@example.com")
         .password("password123")
-        .phone("1234")
+        .phone("1234567")
         .address("123 Main St")
         .role("Administrador")
         .active(true)

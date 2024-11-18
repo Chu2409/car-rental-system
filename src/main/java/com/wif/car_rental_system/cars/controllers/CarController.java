@@ -60,7 +60,6 @@ public class CarController {
       @Valid CarFilters filters,
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int perPage) {
-
     Pageable pageable = PageRequest.of(page, perPage);
 
     Map<String, Object> result = carService.findAllWithFilters(filters, pageable);
