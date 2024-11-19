@@ -6,7 +6,7 @@ COPY mvnw .
 COPY .mvn .mvn 
 COPY pom.xml .
 COPY src src
-COPY .env .
+# COPY .env .
 
 RUN chmod +x ./mvnw
 RUN ./mvnw clean package -DskipTests
