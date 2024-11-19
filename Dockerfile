@@ -1,15 +1,18 @@
-# Usa la imagen oficial de OpenJDK 21
-FROM eclipse-temurin:21-jdk-jammy
+# Dockerfile
+FROM eclipse-temurin:21-jdk-alpine AS build
+WORKDIR /workspace/app
 
-# Directorio de trabajo en el contenedor
-WORKDIR /app
+COPY mvnw .
+COPY .mvn .mvn 
+COPY pom.xml .
+COPY src src
+COPY .env .
 
-# Copia el archivo jar y el .env
-COPY target/*.jar app.jar
-COPY .env .env
+RUN chmod +x ./mvnw
+RUN ./mvnw clean package -DskipTests
 
-# Puerto que expone la aplicación
-EXPOSE 8080
-
-# Comando para ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "app.jar"]
+FROM eclipse-temurin:21-jre-alpine
+VOLUME /tmp
+COPY --from=build /workspace/app/target/*.jar app.jar
+COPY --from=build /workspace/app/.env .env
+ENTRYPOINT ["java","-jar","/app.jar"]
