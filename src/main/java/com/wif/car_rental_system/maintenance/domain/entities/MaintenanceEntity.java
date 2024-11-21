@@ -42,10 +42,10 @@ public class MaintenanceEntity {
   @Column(nullable = false)
   private Float cost;
 
-  @Column(nullable = false)
+  @Column(nullable = false, length = 20)
   private MaintenanceStatusEnum status;
 
-  @Column(nullable = false)
+  @Column(nullable = false, length = 20)
   private MaintenanceTypeEnum type;
 
   @ManyToOne(optional = false)
