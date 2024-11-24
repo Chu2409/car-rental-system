@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wif.car_rental_system.maintenance.domain.dtos.CreateMaintenanceReqDto;
@@ -36,8 +35,7 @@ public class MaintenanceController {
   private MaintenanceMapper mapper;
 
   @GetMapping
-  public ResponseEntity<List<MaintenanceResDto>> findAll(@PageableDefault(sort = "id") Pageable pageable,
-      @RequestParam(name = "include-inactive", defaultValue = "false") boolean includeInactive) {
+  public ResponseEntity<List<MaintenanceResDto>> findAll(@PageableDefault(sort = "id") Pageable pageable) {
     List<MaintenanceEntity> entities = service.findAll(pageable);
 
     List<MaintenanceResDto> responses = entities.stream().map(mapper::toRes).toList();
