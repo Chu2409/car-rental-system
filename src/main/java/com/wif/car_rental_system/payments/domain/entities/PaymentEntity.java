@@ -28,7 +28,7 @@ import lombok.Setter;
 public class PaymentEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @Column(nullable = false)
   private Float amount;
