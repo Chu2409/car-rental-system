@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
-import com.wif.car_rental_system.cars.domain.enums.CarTypeEnum;
 import com.wif.car_rental_system.incidents.domain.entities.IncidentEntity;
 import com.wif.car_rental_system.payments.domain.entities.PaymentEntity;
+import com.wif.car_rental_system.rentals.domain.enums.RentalStatusEnum;
 import com.wif.car_rental_system.users.domain.entities.UserEntity;
 
 import jakarta.persistence.Column;
@@ -49,7 +49,7 @@ public class RentalEntity {
   private Float total;
 
   @Column(nullable = false, length = 20)
-  private CarTypeEnum status;
+  private RentalStatusEnum status;
 
   @ManyToOne(optional = false)
   @JoinColumn(nullable = false, referencedColumnName = "id")
