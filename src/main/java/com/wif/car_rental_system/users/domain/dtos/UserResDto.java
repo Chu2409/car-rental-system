@@ -1,4 +1,4 @@
-package com.wif.car_rental_system.users.domain.dtos.res;
+package com.wif.car_rental_system.users.domain.dtos;
 
 import java.time.LocalDateTime;
 

@@ -7,7 +7,8 @@ import java.util.List;
 import com.wif.car_rental_system.cars.domain.dtos.CarResDto;
 import com.wif.car_rental_system.incidents.domain.entities.IncidentEntity;
 import com.wif.car_rental_system.payments.domain.dtos.PaymentResDto;
-import com.wif.car_rental_system.users.domain.dtos.res.UserResDto;
+import com.wif.car_rental_system.users.domain.dtos.UserResDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

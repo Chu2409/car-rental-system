@@ -1,4 +1,4 @@
-package com.wif.car_rental_system.auth.domain.dtos.req;
+package com.wif.car_rental_system.users.domain.dtos;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -19,7 +19,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SignupReqDto {
+public class CreateUserReqDto {
   @NotNull(message = "name is required")
   @Length(min = 3, max = 50, message = "name must be between 3 and 50 characters")
   private String name;

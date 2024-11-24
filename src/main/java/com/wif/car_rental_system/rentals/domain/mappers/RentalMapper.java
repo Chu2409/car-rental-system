@@ -15,7 +15,7 @@ import com.wif.car_rental_system.rentals.domain.dtos.RentalResDto;
 import com.wif.car_rental_system.rentals.domain.dtos.UpdateRentalReqDto;
 import com.wif.car_rental_system.rentals.domain.entities.RentalEntity;
 import com.wif.car_rental_system.rentals.domain.enums.RentalStatusEnum;
-import com.wif.car_rental_system.users.domain.dtos.res.UserResDto;
+import com.wif.car_rental_system.users.domain.dtos.UserResDto;
 import com.wif.car_rental_system.users.domain.entities.UserEntity;
 import com.wif.car_rental_system.users.domain.mappers.UserMapper;
 

@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import com.wif.car_rental_system.users.domain.dtos.CreateUserReqDto;
+
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -17,7 +19,7 @@ public class SignupReqDtoTest {
 
   @Test
   void whenAllFieldsAreValidThenNoViolations() {
-    SignupReqDto dto = SignupReqDto.builder()
+    CreateUserReqDto dto = CreateUserReqDto.builder()
         .name("John")
         .lastName("Doe")
         .email("john.doe@example.com")
@@ -28,7 +30,7 @@ public class SignupReqDtoTest {
         .active(true)
         .build();
 
-    Set<ConstraintViolation<SignupReqDto>> violations = validator.validate(dto);
+    Set<ConstraintViolation<CreateUserReqDto>> violations = validator.validate(dto);
     assertTrue(violations.isEmpty());
   }
 }

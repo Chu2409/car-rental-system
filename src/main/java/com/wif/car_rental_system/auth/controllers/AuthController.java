@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wif.car_rental_system.auth.domain.dtos.req.ResetPasswordReqDto;
 import com.wif.car_rental_system.auth.domain.dtos.req.SigninReqDto;
-import com.wif.car_rental_system.auth.domain.dtos.req.SignupReqDto;
 import com.wif.car_rental_system.auth.domain.dtos.res.SigninResDto;
 import com.wif.car_rental_system.auth.domain.mappers.AuthMapper;
 import com.wif.car_rental_system.auth.services.AuthService;
 import com.wif.car_rental_system.auth.utils.JwtTokenUtil;
-import com.wif.car_rental_system.users.domain.dtos.res.UserResDto;
+import com.wif.car_rental_system.users.domain.dtos.CreateUserReqDto;
+import com.wif.car_rental_system.users.domain.dtos.UserResDto;
 import com.wif.car_rental_system.users.domain.entities.UserEntity;
 import com.wif.car_rental_system.users.domain.mappers.UserMapper;
 
@@ -38,18 +38,18 @@ public class AuthController {
   private AuthenticationManager authenticationManager;
 
   @Autowired
-  private AuthMapper mapper;
+  private UserMapper mapper;
 
   @Autowired
-  private UserMapper userMapper;
+  private AuthMapper authMapper;
 
   @PostMapping("/signup")
-  public ResponseEntity<UserResDto> signup(@RequestBody @Valid SignupReqDto dto) {
+  public ResponseEntity<UserResDto> signup(@RequestBody @Valid CreateUserReqDto dto) {
     UserEntity user = mapper.toEntity(dto);
 
     UserEntity registeredUser = service.signup(user);
 
-    return ResponseEntity.ok(userMapper.toRes(registeredUser));
+    return ResponseEntity.ok(mapper.toRes(registeredUser));
   }
 
   @PostMapping("/signin")
@@ -58,7 +58,7 @@ public class AuthController {
     var authUser = authenticationManager.authenticate(usernamePassword);
     var accessToken = jwtTokenUtil.genAccessToken((UserEntity) authUser.getPrincipal());
 
-    return ResponseEntity.ok(mapper.toRes(accessToken));
+    return ResponseEntity.ok(authMapper.toRes(accessToken));
   }
 
   @PostMapping("/reset")
