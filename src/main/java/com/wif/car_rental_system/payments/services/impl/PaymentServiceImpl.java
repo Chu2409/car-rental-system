@@ -11,6 +11,7 @@ import com.wif.car_rental_system.payments.domain.entities.PaymentEntity;
 import com.wif.car_rental_system.payments.repositories.PaymentRepository;
 import com.wif.car_rental_system.payments.services.PaymentService;
 import com.wif.car_rental_system.rentals.domain.entities.RentalEntity;
+import com.wif.car_rental_system.rentals.services.RentalService;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -19,6 +20,9 @@ public class PaymentServiceImpl implements PaymentService {
 
   @Autowired
   private PaymentRepository repository;
+
+  @Autowired
+  private RentalService rentalService;
 
   @Override
   public List<PaymentEntity> findAll(Pageable pageable) {
@@ -40,7 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
     PaymentEntity entityToUpdate = this.findById(id);
 
     Optional.ofNullable(entity.getRental()).ifPresent(rel -> {
-      RentalEntity relEntity = null; // TODO
+      RentalEntity relEntity = rentalService.findById(rel.getId());
       entityToUpdate.setRental(relEntity);
     });
     Optional.ofNullable(entity.getAmount()).ifPresent(entityToUpdate::setAmount);
