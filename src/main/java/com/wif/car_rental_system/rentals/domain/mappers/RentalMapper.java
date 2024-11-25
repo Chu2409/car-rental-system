@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import com.wif.car_rental_system.cars.domain.dtos.CarResDto;
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
 import com.wif.car_rental_system.cars.domain.mappers.CarMapper;
+import com.wif.car_rental_system.incidents.domain.dtos.IncidentResDto;
+import com.wif.car_rental_system.incidents.domain.mappers.IncidentMapper;
 import com.wif.car_rental_system.payments.domain.dtos.PaymentResDto;
 import com.wif.car_rental_system.payments.domain.mappers.PaymentMapper;
 import com.wif.car_rental_system.rentals.domain.dtos.CreateRentalReqDto;
@@ -30,6 +32,9 @@ public class RentalMapper {
 
   @Autowired
   private PaymentMapper paymentMapper;
+
+  @Autowired
+  private IncidentMapper incidentMapper;
 
   public RentalEntity toEntity(Long id) {
     return RentalEntity.builder()
@@ -78,7 +83,7 @@ public class RentalMapper {
     UserResDto user = userMapper.toRes(entity.getUser());
     UserResDto employee = userMapper.toRes(entity.getEmployee());
     List<PaymentResDto> payments = entity.getPayments().stream().map(paymentMapper::toRes).toList();
-    // List<> incidents TODO
+    List<IncidentResDto> incidents = entity.getIncidents().stream().map(incidentMapper::toRes).toList();
 
     return RentalResDto.builder()
         .actualEndDate(entity.getActualEndDate())
@@ -90,6 +95,7 @@ public class RentalMapper {
         .user(user)
         .employee(employee)
         .payments(payments)
+        .incidents(incidents)
         .build();
   }
 }

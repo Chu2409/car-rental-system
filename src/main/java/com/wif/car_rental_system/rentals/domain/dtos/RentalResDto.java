@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.wif.car_rental_system.cars.domain.dtos.CarResDto;
-import com.wif.car_rental_system.incidents.domain.entities.IncidentEntity;
+import com.wif.car_rental_system.incidents.domain.dtos.IncidentResDto;
 import com.wif.car_rental_system.payments.domain.dtos.PaymentResDto;
 import com.wif.car_rental_system.users.domain.dtos.UserResDto;
 
@@ -34,6 +34,6 @@ public class RentalResDto {
   @Default
   private List<PaymentResDto> payments = new ArrayList<>();
   @Default
-  private List<IncidentEntity> incidents = new ArrayList<>(); // TODO
+  private List<IncidentResDto> incidents = new ArrayList<>();
 
 }

@@ -12,6 +12,8 @@ import com.wif.car_rental_system.cars.services.CarService;
 import com.wif.car_rental_system.rentals.domain.entities.RentalEntity;
 import com.wif.car_rental_system.rentals.repositories.RentalRepository;
 import com.wif.car_rental_system.rentals.services.RentalService;
+import com.wif.car_rental_system.users.domain.entities.UserEntity;
+import com.wif.car_rental_system.users.services.UserService;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -23,6 +25,9 @@ public class RentalServiceImpl implements RentalService {
 
   @Autowired
   private CarService carService;
+
+  @Autowired
+  private UserService userService;
 
   @Override
   public List<RentalEntity> findAll(Pageable pageable) {
@@ -48,10 +53,12 @@ public class RentalServiceImpl implements RentalService {
       entityToUpdate.setCar(relEntity);
     });
     Optional.ofNullable(entity.getEmployee()).ifPresent(rel -> {
-      // TODO
+      UserEntity relEntity = userService.findById(rel.getId());
+      entityToUpdate.setEmployee(relEntity);
     });
     Optional.ofNullable(entity.getUser()).ifPresent(rel -> {
-      // TODO
+      UserEntity relEntity = userService.findById(rel.getId());
+      entityToUpdate.setUser(relEntity);
     });
     Optional.ofNullable(entity.getActualEndDate()).ifPresent(entityToUpdate::setActualEndDate);
     Optional.ofNullable(entity.getEndDate()).ifPresent(entityToUpdate::setEndDate);
