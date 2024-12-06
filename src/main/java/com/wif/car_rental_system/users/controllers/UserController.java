@@ -10,7 +10,6 @@ import com.wif.car_rental_system.users.domain.entities.UserEntity;
 import com.wif.car_rental_system.users.domain.mappers.UserMapper;
 import com.wif.car_rental_system.users.services.UserService;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -28,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/users")
-@RolesAllowed({ "ADMIN", "CUSTOMER" })
+// @RolesAllowed({ "ADMIN", "CUSTOMER" })
 public class UserController {
 
   @Autowired

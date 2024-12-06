@@ -29,12 +29,12 @@ public class UpdateMaintenanceReqDto {
   @Length(max = 255, message = "description must be less than 255 characters")
   private String description;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   private LocalDateTime endDate;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm") // "31/12/2024:02:02"
   private LocalDateTime startDate;
 
   @EnumValue(enumClass = MaintenanceStatusEnum.class, message = "Invalid status")

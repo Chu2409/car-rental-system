@@ -36,7 +36,7 @@ public class PaymentEntity {
   @Column(nullable = false)
   private LocalDateTime paymentDate;
 
-  @Column(nullable = false, length = 20)
+  @Column(length = 20)
   private PaymentTypeEnum type;
 
   @Column(nullable = false, length = 20)

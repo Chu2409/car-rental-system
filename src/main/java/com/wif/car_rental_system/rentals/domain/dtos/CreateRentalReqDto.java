@@ -22,19 +22,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class CreateRentalReqDto {
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   @NotNull(message = "startDate is required")
   private LocalDateTime startDate;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   @NotNull(message = "endDate is required")
   private LocalDateTime endDate;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
-  @NotNull(message = "actualendDate is required")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   private LocalDateTime actualEndDate;
 
   @NotNull(message = "status is required")

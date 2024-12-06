@@ -32,7 +32,7 @@ public class IncidentEntity {
   @Column(nullable = false, length = 200)
   private String description;
 
-  @Column(nullable = false)
+  @Column()
   private Float repairCost;
 
   @Column(nullable = false)

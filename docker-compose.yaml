@@ -2,7 +2,6 @@ services:
   db:
     container_name: car-rental-db
     image: postgres:15.1-alpine
-    restart: always
     ports:
       - ${DB_PORT}:5432
     environment:

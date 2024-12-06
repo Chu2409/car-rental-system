@@ -21,16 +21,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class UpdateRentalReqDto {
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   private LocalDateTime startDate;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   private LocalDateTime endDate;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   private LocalDateTime actualEndDate;
 
   @EnumValue(enumClass = RentalStatusEnum.class, message = "status must be one of the types")

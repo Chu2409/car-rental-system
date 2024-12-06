@@ -41,6 +41,14 @@ public class RentalServiceImpl implements RentalService {
 
   @Override
   public RentalEntity save(RentalEntity entity) {
+    CarEntity car = carService.findById(entity.getCar().getId());
+    UserEntity user = userService.findById(entity.getUser().getId());
+    UserEntity employee = userService.findById(entity.getEmployee().getId());
+
+    entity.setCar(car);
+    entity.setUser(user);
+    entity.setEmployee(employee);
+
     return repository.save(entity);
   }
 

@@ -47,6 +47,7 @@ public class UserMapper {
   }
 
   public UserResDto toRes(UserEntity entity) {
+
     return UserResDto.builder()
         .id(entity.getId())
         .name(entity.getName())

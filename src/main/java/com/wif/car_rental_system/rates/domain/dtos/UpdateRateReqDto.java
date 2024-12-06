@@ -30,12 +30,12 @@ public class UpdateRateReqDto {
   @EnumValue(enumClass = CarTypeEnum.class, message = "carType must be one of the types")
   private String carType;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   private LocalDateTime startDate;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   private LocalDateTime endDate;
 
   private Boolean active;

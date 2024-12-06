@@ -23,7 +23,6 @@ import lombok.Setter;
 @Builder
 public class CreateIncidentReqDto {
 
-  @NotNull(message = "repairCost is required")
   @PositiveOrZero(message = "repairCost must be positive or zero")
   private Float repairCost;
 
@@ -32,8 +31,8 @@ public class CreateIncidentReqDto {
 
   private String photoEvidenceUrl;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   @NotNull(message = "reportedAt is required")
   private LocalDateTime reportedAt;
 

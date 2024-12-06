@@ -39,7 +39,7 @@ public class RateEntity {
   @Column(nullable = false)
   private LocalDateTime startDate;
 
-  @Column(nullable = false)
+  @Column()
   private LocalDateTime endDate;
 
   @Column(nullable = false, columnDefinition = "boolean default true")

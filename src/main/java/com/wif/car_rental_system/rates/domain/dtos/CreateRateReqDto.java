@@ -15,6 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Builder.Default;
 
 @Getter
 @Setter
@@ -35,16 +36,16 @@ public class CreateRateReqDto {
   @EnumValue(enumClass = CarTypeEnum.class, message = "carType must be one of the types")
   private String carType;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   @NotNull(message = "startDate is required")
   private LocalDateTime startDate;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
-  @NotNull(message = "endDate is required")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   private LocalDateTime endDate;
 
-  private Boolean active;
+  @Default
+  private Boolean active = true;
 
 }

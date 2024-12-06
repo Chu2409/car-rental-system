@@ -33,13 +33,13 @@ public class MaintenanceEntity {
   @Column(nullable = false)
   private LocalDateTime startDate;
 
-  @Column(nullable = false)
+  @Column()
   private LocalDateTime endDate;
 
   @Column
   private String description;
 
-  @Column(nullable = false)
+  @Column
   private Float cost;
 
   @Column(nullable = false, length = 20)

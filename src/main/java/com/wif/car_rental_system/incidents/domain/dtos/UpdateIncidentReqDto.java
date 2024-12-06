@@ -28,8 +28,8 @@ public class UpdateIncidentReqDto {
 
   private String photoEvidenceUrl;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   private LocalDateTime reportedAt;
 
   @EnumValue(enumClass = IncidentStatusEnum.class, message = "status must be one of the types")

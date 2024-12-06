@@ -28,8 +28,8 @@ public class CreatePaymentReqDto {
   @PositiveOrZero(message = "amount must be positive or zero")
   private Float amount;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  @JsonFormat(pattern = "MM/dd/yyyy")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(pattern = "dd/MM/yyyy':'HH:mm")
   @NotNull(message = "paymentDate is required")
   private LocalDateTime paymentDate;
 
@@ -37,7 +37,6 @@ public class CreatePaymentReqDto {
   @EnumValue(enumClass = PaymentStatusEnum.class, message = "status must be one of the types")
   private String status;
 
-  @NotNull(message = "type is required")
   @EnumValue(enumClass = PaymentTypeEnum.class, message = "type must be one of the types")
   private String type;
 
