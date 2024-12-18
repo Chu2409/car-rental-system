@@ -1,9 +1,10 @@
 package com.wif.car_rental_system.rentals.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,9 +51,26 @@ public class RentalController {
     return ResponseEntity.ok(mapper.toRes(entity));
   }
 
+  @GetMapping("/users/{userId}")
+  public ResponseEntity<Map<String, Object>> findAllByUserId(@PathVariable("userId") Long userId,
+      @PageableDefault(sort = "id") Pageable pageable) {
+
+    Map<String, Object> response = service.findAllByUserId(userId, pageable);
+
+    @SuppressWarnings("unchecked")
+    List<RentalEntity> entities = (List<RentalEntity>) response.get("items");
+
+    List<RentalResDto> items = entities.stream().map(mapper::toRes).toList();
+
+    response.put("items", items);
+
+    return ResponseEntity.ok(response);
+  }
+
   @PostMapping
   public ResponseEntity<RentalResDto> save(@RequestBody @Valid CreateRentalReqDto dto) {
     RentalEntity entity = mapper.toEntity(dto);
+    System.out.println("superamos el mapper");
 
     entity = service.save(entity);
 

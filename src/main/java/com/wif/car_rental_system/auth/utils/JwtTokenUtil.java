@@ -31,6 +31,7 @@ public class JwtTokenUtil {
   private final String EMAIL_CLAIM = "email";
   private final String RECOVERY_CLAIM = "recovery";
   private final String ROLE_CLAIM = "role";
+  private final String USER_ID_CLAIM = "userId";
 
   public String genAccessToken(UserEntity user) {
     try {
@@ -41,6 +42,7 @@ public class JwtTokenUtil {
 
       return JWT.create()
           .withSubject(user.getUsername())
+          .withClaim(USER_ID_CLAIM, user.getId())
           .withClaim(EMAIL_CLAIM, user.getUsername())
           .withClaim(ROLE_CLAIM, user.getRole().getLabel())
           .withExpiresAt(expirationDate)

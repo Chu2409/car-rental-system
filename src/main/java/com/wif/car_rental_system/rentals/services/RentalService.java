@@ -1,13 +1,16 @@
 package com.wif.car_rental_system.rentals.services;
 
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Pageable;
 
 import com.wif.car_rental_system.rentals.domain.entities.RentalEntity;
 
 public interface RentalService {
   List<RentalEntity> findAll(Pageable pageable);
+
+  Map<String, Object> findAllByUserId(Long userId, Pageable pageable);
 
   RentalEntity findById(Long id);
 

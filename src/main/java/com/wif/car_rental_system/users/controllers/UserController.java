@@ -45,6 +45,15 @@ public class UserController {
     return ResponseEntity.ok(responses);
   }
 
+  @GetMapping("/clients")
+  public ResponseEntity<List<UserResDto>> findAllClients() {
+    List<UserEntity> entities = service.findAllClients();
+
+    List<UserResDto> responses = entities.stream().map(mapper::toRes).toList();
+
+    return ResponseEntity.ok(responses);
+  }
+
   @GetMapping("/{id}")
   public ResponseEntity<UserResDto> findById(@PathVariable("id") Long id) {
     UserEntity entity = service.findById(id);

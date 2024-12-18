@@ -48,8 +48,8 @@ public class RentalEntity {
   @JoinColumn(nullable = false, referencedColumnName = "id")
   private UserEntity user;
 
-  @ManyToOne(optional = false)
-  @JoinColumn(nullable = false, referencedColumnName = "id")
+  @ManyToOne(optional = true)
+  @JoinColumn(nullable = true, referencedColumnName = "id")
   private UserEntity employee;
 
   @ManyToOne(optional = false)

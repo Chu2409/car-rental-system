@@ -34,7 +34,7 @@ public class RentalMapper {
     RentalStatusEnum status = RentalStatusEnum.of(dto.getStatus());
     CarEntity car = CarEntity.builder().id(dto.getCarId()).build();
     UserEntity user = UserEntity.builder().id(dto.getUserId()).build();
-    UserEntity employee = UserEntity.builder().id(dto.getEmployeeId()).build();
+    UserEntity employee = dto.getEmployeeId() != null ? UserEntity.builder().id(dto.getEmployeeId()).build() : null;
 
     return RentalEntity.builder()
         .actualEndDate(dto.getActualEndDate())
@@ -69,13 +69,10 @@ public class RentalMapper {
   public RentalResDto toRes(RentalEntity entity) {
     CarResDto car = carMapper.toRes(entity.getCar());
     UserResDto user = userMapper.toRes(entity.getUser());
-    UserResDto employee = userMapper.toRes(entity.getEmployee());
-    // List<PaymentResDto> payments =
-    // entity.getPayments().stream().map(paymentMapper::toRes).toList();
-    // List<IncidentResDto> incidents =
-    // entity.getIncidents().stream().map(incidentMapper::toRes).toList();
+    UserResDto employee = entity.getEmployee() != null ? userMapper.toRes(entity.getEmployee()) : null;
 
     return RentalResDto.builder()
+        .id(entity.getId())
         .actualEndDate(entity.getActualEndDate())
         .startDate(entity.getStartDate())
         .endDate(entity.getEndDate())
@@ -84,8 +81,6 @@ public class RentalMapper {
         .car(car)
         .user(user)
         .employee(employee)
-        // .payments(payments)
-        // .incidents(incidents)
         .build();
   }
 }

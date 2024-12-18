@@ -1,10 +1,12 @@
 package com.wif.car_rental_system.rentals.services.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
@@ -40,14 +42,34 @@ public class RentalServiceImpl implements RentalService {
   }
 
   @Override
+  public Map<String, Object> findAllByUserId(Long userId, Pageable pageable) {
+
+    long totalItems = repository.countAllByUserId(userId);
+
+    List<RentalEntity> items = repository.findAllByUserId(userId, pageable);
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("items", items);
+    response.put("totalItems", totalItems);
+    response.put("page", pageable.getPageNumber());
+    response.put("perPage", pageable.getPageSize());
+
+    return response;
+
+  }
+
+  @Override
   public RentalEntity save(RentalEntity entity) {
     CarEntity car = carService.findById(entity.getCar().getId());
     UserEntity user = userService.findById(entity.getUser().getId());
-    UserEntity employee = userService.findById(entity.getEmployee().getId());
 
     entity.setCar(car);
     entity.setUser(user);
-    entity.setEmployee(employee);
+
+    if (entity.getEmployee() != null) {
+      UserEntity employee = userService.findById(entity.getEmployee().getId());
+      entity.setEmployee(employee);
+    }
 
     return repository.save(entity);
   }

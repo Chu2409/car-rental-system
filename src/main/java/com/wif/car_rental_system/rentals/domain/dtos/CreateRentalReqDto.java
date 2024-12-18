@@ -48,7 +48,6 @@ public class CreateRentalReqDto {
   @PositiveOrZero(message = "carId must be positive or zero")
   private Long carId;
 
-  @NotNull(message = "employeeId is required")
   @PositiveOrZero(message = "employeeId must be positive or zero")
   private Long employeeId;
 

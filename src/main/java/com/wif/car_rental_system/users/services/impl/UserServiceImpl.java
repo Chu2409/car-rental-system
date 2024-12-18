@@ -1,5 +1,6 @@
 package com.wif.car_rental_system.users.services.impl;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.wif.car_rental_system.users.domain.entities.UserEntity;
+import com.wif.car_rental_system.users.domain.enums.UserRoleEnum;
 import com.wif.car_rental_system.users.repositories.UserRepository;
 import com.wif.car_rental_system.users.services.UserService;
 
@@ -23,6 +25,14 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<UserEntity> findAll(Pageable pageable) {
     return repository.findAll();
+  }
+
+  @Override
+  public List<UserEntity> findAllClients() {
+    List<UserEntity> entities = repository.findAll();
+
+    List<UserEntity> clients = entities.stream().filter(entity -> entity.getRole().equals(UserRoleEnum.CUSTOMER)).toList();
+    return clients;
   }
 
   @Override
