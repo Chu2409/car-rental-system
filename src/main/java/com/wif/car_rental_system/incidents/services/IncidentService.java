@@ -9,6 +9,8 @@ import com.wif.car_rental_system.incidents.domain.entities.IncidentEntity;
 public interface IncidentService {
   List<IncidentEntity> findAll(Pageable pageable);
 
+  List<IncidentEntity> getAllByRentalId(Long rentalId);
+
   IncidentEntity findById(Long id);
 
   IncidentEntity save(IncidentEntity entity);

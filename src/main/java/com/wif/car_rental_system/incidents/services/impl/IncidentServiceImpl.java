@@ -35,6 +35,11 @@ public class IncidentServiceImpl implements IncidentService {
   }
 
   @Override
+  public List<IncidentEntity> getAllByRentalId(Long rentalId) {
+    return repository.getAllByRentalId(rentalId);
+  }
+
+  @Override
   public IncidentEntity save(IncidentEntity entity) {
     return repository.save(entity);
   }

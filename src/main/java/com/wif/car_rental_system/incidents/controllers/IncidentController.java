@@ -42,6 +42,15 @@ public class IncidentController {
     return ResponseEntity.ok(responses);
   }
 
+  @GetMapping("/rentals/{rentalId}")
+  public ResponseEntity<List<IncidentResDto>> getAllByRentalId(@PathVariable("rentalId") Long rentalId) {
+    List<IncidentEntity> entities = service.getAllByRentalId(rentalId);
+
+    List<IncidentResDto> responses = entities.stream().map(mapper::toRes).toList();
+
+    return ResponseEntity.ok(responses);
+  }
+
   @GetMapping("/{id}")
   public ResponseEntity<IncidentResDto> findById(@PathVariable("id") Long id) {
     IncidentEntity entity = service.findById(id);
