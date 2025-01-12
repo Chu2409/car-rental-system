@@ -10,6 +10,8 @@ import com.wif.car_rental_system.rentals.domain.entities.RentalEntity;
 
 @Repository
 public interface RentalRepository extends JpaRepository<RentalEntity, Long> {
+
   List<RentalEntity> findAllByUserId(Long userId, Pageable pageable);
+
   Long countAllByUserId(Long userId);
 }
