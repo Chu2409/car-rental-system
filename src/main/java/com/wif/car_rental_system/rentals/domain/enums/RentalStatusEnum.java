@@ -8,7 +8,7 @@ public enum RentalStatusEnum implements EnumInterface {
   RESERVED("Reservado"),
   ACTIVE("Activo"),
   COMPLETED("Completado"),
-  CANCELED("Cancelado"),
+  CANCELED("Cancelado"),  
   PAID("Pagado");
 
   private final String label;

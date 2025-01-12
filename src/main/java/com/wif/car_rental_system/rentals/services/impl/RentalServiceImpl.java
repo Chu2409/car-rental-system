@@ -1,5 +1,6 @@
 package com.wif.car_rental_system.rentals.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.wif.car_rental_system.cars.domain.entities.CarEntity;
+import com.wif.car_rental_system.cars.domain.enums.CarStatusEnum;
 import com.wif.car_rental_system.cars.services.CarService;
 import com.wif.car_rental_system.rentals.domain.entities.RentalEntity;
 import com.wif.car_rental_system.rentals.repositories.RentalRepository;
@@ -63,6 +65,14 @@ public class RentalServiceImpl implements RentalService {
     CarEntity car = carService.findById(entity.getCar().getId());
     UserEntity user = userService.findById(entity.getUser().getId());
 
+    if (!isCarAvailableForDates(car.getId(), entity.getStartDate(), entity.getEndDate())) {
+      throw new IllegalStateException("El coche ya tiene una reserva en las fechas solicitadas");
+  }
+
+    CarEntity carUpdate = new CarEntity();
+    carUpdate.setStatus(CarStatusEnum.RENTED);
+    carService.update(car.getId(), carUpdate);
+
     entity.setCar(car);
     entity.setUser(user);
 
@@ -72,6 +82,16 @@ public class RentalServiceImpl implements RentalService {
     }
 
     return repository.save(entity);
+  }
+
+  private boolean isCarAvailableForDates(Long carId, LocalDateTime startDate, LocalDateTime endDate) {
+    List<RentalEntity> overlappingRentals = repository.findOverlappingRentals(
+        carId, 
+        startDate, 
+        endDate
+    );
+    
+    return overlappingRentals.isEmpty();
   }
 
   @Override
