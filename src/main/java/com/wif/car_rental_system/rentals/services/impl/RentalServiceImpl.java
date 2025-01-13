@@ -16,12 +16,15 @@ import com.wif.car_rental_system.cars.services.CarService;
 import com.wif.car_rental_system.rentals.domain.entities.RentalEntity;
 import com.wif.car_rental_system.rentals.repositories.RentalRepository;
 import com.wif.car_rental_system.rentals.services.RentalService;
+import com.wif.car_rental_system.rentals.utils.InvoiceSenderUtil;
 import com.wif.car_rental_system.users.domain.entities.UserEntity;
 import com.wif.car_rental_system.users.services.UserService;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.java.Log;
 
 @Service
+@Log
 public class RentalServiceImpl implements RentalService {
 
   @Autowired
@@ -32,6 +35,9 @@ public class RentalServiceImpl implements RentalService {
 
   @Autowired
   private UserService userService;
+
+  @Autowired
+  private InvoiceSenderUtil emailSenderUtil;
 
   @Override
   public List<RentalEntity> findAll(Pageable pageable) {
@@ -131,4 +137,32 @@ public class RentalServiceImpl implements RentalService {
     return entity;
   }
 
+  @Override
+  public void sendInvoiceEmail(Long id) {
+    RentalEntity rental = this.findById(id);
+    emailSenderUtil.sendInvoiceEmail(rental.getUser().getEmail(), rental);
+  }
+
+  @Override
+  public List<Object[]> getCarRentalsByType() {
+    return repository.countRentalsByCarType();
+  
+  }
+
+  @Override
+  public List<Object[]> getTotalIncomeByCarType() {
+    return repository.findTotalIncomeByCarType();
+  }
+
+  @Override
+  public List<Object[]> getAverageDurationByCarType() {
+    return repository.findAverageDurationByCarType();
+  }
+
+  @Override
+  public List<Object[]> getMostRentedCars() {
+    List<Object[]> results = repository.findMostRentedCars();
+    return results;
+  }
+  
 }
