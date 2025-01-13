@@ -16,6 +16,7 @@ import com.wif.car_rental_system.cars.services.CarService;
 import com.wif.car_rental_system.rentals.domain.entities.RentalEntity;
 import com.wif.car_rental_system.rentals.repositories.RentalRepository;
 import com.wif.car_rental_system.rentals.services.RentalService;
+import com.wif.car_rental_system.rentals.utils.InvoiceSenderUtil;
 import com.wif.car_rental_system.users.domain.entities.UserEntity;
 import com.wif.car_rental_system.users.services.UserService;
 
@@ -32,6 +33,9 @@ public class RentalServiceImpl implements RentalService {
 
   @Autowired
   private UserService userService;
+
+  @Autowired
+  private InvoiceSenderUtil emailSenderUtil;
 
   @Override
   public List<RentalEntity> findAll(Pageable pageable) {
@@ -129,6 +133,12 @@ public class RentalServiceImpl implements RentalService {
     RentalEntity entity = this.findById(id);
     repository.deleteById(id);
     return entity;
+  }
+
+  @Override
+  public void sendInvoiceEmail(Long id) {
+    RentalEntity rental = this.findById(id);
+    emailSenderUtil.sendInvoiceEmail(rental.getUser().getEmail(), rental);
   }
 
 }

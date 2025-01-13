@@ -21,4 +21,6 @@ public interface RentalService {
   boolean existsById(Long id);
 
   RentalEntity deleteById(Long id);
+
+  void sendInvoiceEmail(Long id);
 }

@@ -37,4 +37,7 @@ public class EmailSenderUtil {
       log.warning("An error occurred while sending the email: " + e.getMessage());
     }
   }
+
+
+  
 }

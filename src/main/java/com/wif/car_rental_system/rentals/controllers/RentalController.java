@@ -37,6 +37,7 @@ public class RentalController {
   @Autowired
   private RentalMapper mapper;
 
+
   @GetMapping
   public ResponseEntity<List<RentalResDto>> findAll(@PageableDefault(sort = "id") Pageable pageable) {
     List<RentalEntity> entities = service.findAll(pageable);
@@ -97,5 +98,13 @@ public class RentalController {
     RentalEntity entity = service.deleteById(id);
 
     return ResponseEntity.ok(mapper.toRes(entity));
+  }
+
+
+  @PostMapping("/{id}/send-invoice")
+  public ResponseEntity<Void> sendInvoiceEmail(@PathVariable("id") Long id) {
+    service.sendInvoiceEmail(id);
+
+    return ResponseEntity.ok().build();
   }
 }
