@@ -23,4 +23,12 @@ public interface RentalService {
   RentalEntity deleteById(Long id);
 
   void sendInvoiceEmail(Long id);
+
+  List<Object[]> getCarRentalsByType();
+
+  List<Object[]> getTotalIncomeByCarType();
+
+  List<Object[]> getAverageDurationByCarType();
+
+  List<Object[]> getMostRentedCars();
 }

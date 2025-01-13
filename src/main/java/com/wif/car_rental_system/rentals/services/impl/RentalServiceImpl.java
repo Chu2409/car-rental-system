@@ -21,8 +21,10 @@ import com.wif.car_rental_system.users.domain.entities.UserEntity;
 import com.wif.car_rental_system.users.services.UserService;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.java.Log;
 
 @Service
+@Log
 public class RentalServiceImpl implements RentalService {
 
   @Autowired
@@ -141,4 +143,26 @@ public class RentalServiceImpl implements RentalService {
     emailSenderUtil.sendInvoiceEmail(rental.getUser().getEmail(), rental);
   }
 
+  @Override
+  public List<Object[]> getCarRentalsByType() {
+    return repository.countRentalsByCarType();
+  
+  }
+
+  @Override
+  public List<Object[]> getTotalIncomeByCarType() {
+    return repository.findTotalIncomeByCarType();
+  }
+
+  @Override
+  public List<Object[]> getAverageDurationByCarType() {
+    return repository.findAverageDurationByCarType();
+  }
+
+  @Override
+  public List<Object[]> getMostRentedCars() {
+    List<Object[]> results = repository.findMostRentedCars();
+    return results;
+  }
+  
 }
