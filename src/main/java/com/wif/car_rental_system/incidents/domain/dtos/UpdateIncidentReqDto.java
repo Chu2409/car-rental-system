@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wif.car_rental_system.incidents.domain.enums.IncidentStatusEnum;
 import com.wif.car_rental_system.shared.validators.EnumValue;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,7 @@ public class UpdateIncidentReqDto {
 
   private String description;
 
+  @Nullable()
   private String photoEvidenceUrl;
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
